@@ -1,0 +1,1327 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Front Street Salon | Boutique Hair Salon in Strathroy, ON</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Custom Tailwind Configuration -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            bg: '#FAF8F5',       /* Warm Soft Cream */
+                            card: '#FFFFFF',     /* Pure White */
+                            accent: '#C58B70',   /* Soft Warm Rose Gold / Terracotta */
+                            accentDark: '#A3684E',
+                            gold: '#D4AF37',
+                            text: '#2C2523',     /* Deep Charcoal Espresso */
+                            muted: '#6E665E',    /* Soft Taupe Slate */
+                            linen: '#EFEAE3',    /* Border Soft Linen */
+                            subtle: '#F4EFE9'
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['"Cormorant Garamond"', 'Georgia', 'serif'],
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #FAF8F5;
+            color: #2C2523;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Glassmorphism Navigation */
+        .nav-glass {
+            background: rgba(250, 248, 245, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+
+        /* Subtle reveal animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #FAF8F5;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #C58B70;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #A3684E;
+        }
+
+        /* Image hover zooms */
+        .img-zoom-container {
+            overflow: hidden;
+        }
+        .img-zoom-container img {
+            transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .img-zoom-container:hover img {
+            transform: scale(1.06);
+        }
+
+        /* Modal Transitions */
+        .modal-overlay {
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        .modal-overlay.open {
+            opacity: 1;
+            visibility: visible;
+        }
+        .modal-content {
+            transform: scale(0.95) translateY(10px);
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .modal-overlay.open .modal-content {
+            transform: scale(1) translateY(0);
+        }
+
+        /* Interactive Calendar Date Picker Styling */
+        .calendar-day {
+            transition: all 0.2s ease;
+        }
+        .calendar-day:hover:not(.disabled) {
+            background-color: #C58B70;
+            color: white;
+        }
+        .calendar-day.selected {
+            background-color: #A3684E !important;
+            color: white !important;
+            font-weight: 600;
+        }
+        .calendar-day.disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-brand-accent selection:text-white">
+
+    <div class="bg-brand-accent text-white text-xs md:text-sm py-2 px-4 text-center font-medium tracking-wide flex justify-center items-center gap-3">
+        <span><i class="fa-solid fa-sparkles mr-1.5"></i> Welcome to Strathroy's Premier Boutique Salon</span>
+        <span class="hidden sm:inline">|</span>
+        <span class="hidden sm:inline"><i class="fa-solid fa-location-dot mr-1"></i> 48 Front Street E, Strathroy, ON</span>
+        <a href="tel:5192579012" class="underline hover:text-brand-subtle transition font-semibold ml-2"><i class="fa-solid fa-phone text-xs mr-1"></i> (519) 257-9012</a>
+    </div>
+
+    <header class="sticky top-0 z-40 w-full nav-glass border-b border-brand-linen/60 transition-all duration-300" id="main-header">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Brand Logo -->
+            <a href="#home" class="flex flex-col group focus:outline-none">
+                <span class="font-serif text-2xl md:text-3xl font-semibold tracking-wider text-brand-text group-hover:text-brand-accent transition">
+                    FRONT STREET
+                </span>
+                <span class="text-[10px] uppercase tracking-[0.3em] text-brand-muted -mt-1 font-medium">
+                    SALON &bull; STRATHROY
+                </span>
+            </a>
+
+            <!-- Desktop Navigation -->
+            <nav class="hidden md:flex items-center space-x-8 text-sm font-medium text-brand-text">
+                <a href="#home" class="hover:text-brand-accent transition hover:-translate-y-0.5">Home</a>
+                <a href="#about" class="hover:text-brand-accent transition hover:-translate-y-0.5">About</a>
+                <a href="#services" class="hover:text-brand-accent transition hover:-translate-y-0.5">Services</a>
+                <a href="#gallery" class="hover:text-brand-accent transition hover:-translate-y-0.5">Gallery</a>
+                <a href="#why-us" class="hover:text-brand-accent transition hover:-translate-y-0.5">Why Choose Us</a>
+                <a href="#testimonials" class="hover:text-brand-accent transition hover:-translate-y-0.5">Reviews</a>
+                <a href="#contact" class="hover:text-brand-accent transition hover:-translate-y-0.5">Contact</a>
+            </nav>
+
+            <!-- Book CTA Button -->
+            <div class="hidden sm:flex items-center space-x-4">
+                <button onclick="openBookingModal()" class="bg-brand-accent text-white px-5 py-2.5 rounded-full text-sm font-semibold tracking-wide shadow-md hover:bg-brand-accentDark transition duration-300 flex items-center gap-2 transform hover:-translate-y-0.5">
+                    <i class="fa-regular fa-calendar-check text-xs"></i>
+                    <span>Book Appointment</span>
+                </button>
+            </div>
+
+            <!-- Mobile Menu Toggle -->
+            <div class="flex md:hidden">
+                <button id="mobile-menu-btn" class="p-2 text-brand-text focus:outline-none" aria-label="Toggle Navigation">
+                    <i class="fa-solid fa-bars text-xl" id="menu-icon"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Nav Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-brand-bg border-b border-brand-linen px-6 py-6 space-y-4 shadow-xl transition-all">
+            <a href="#home" class="mobile-link block text-base font-medium text-brand-text hover:text-brand-accent">Home</a>
+            <a href="#about" class="mobile-link block text-base font-medium text-brand-text hover:text-brand-accent">About</a>
+            <a href="#services" class="mobile-link block text-base font-medium text-brand-text hover:text-brand-accent">Services</a>
+            <a href="#gallery" class="mobile-link block text-base font-medium text-brand-text hover:text-brand-accent">Gallery</a>
+            <a href="#why-us" class="mobile-link block text-base font-medium text-brand-text hover:text-brand-accent">Why Choose Us</a>
+            <a href="#testimonials" class="mobile-link block text-base font-medium text-brand-text hover:text-brand-accent">Reviews</a>
+            <a href="#contact" class="mobile-link block text-base font-medium text-brand-text hover:text-brand-accent">Contact</a>
+            <div class="pt-4 border-t border-brand-linen">
+                <button onclick="openBookingModal()" class="w-full bg-brand-accent text-white py-3 rounded-full text-center font-semibold shadow hover:bg-brand-accentDark transition">
+                    Book An Appointment
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <section id="home" class="relative min-h-[calc(100vh-5rem)] flex items-center py-12 lg:py-20 overflow-hidden bg-gradient-to-b from-brand-bg via-brand-subtle to-brand-bg">
+        <!-- Soft decorative background elements -->
+        <div class="absolute -top-24 -right-24 w-96 h-96 bg-brand-accent/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute top-1/2 -left-24 w-80 h-80 bg-brand-gold/10 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+                
+                <!-- Left Content -->
+                <div class="lg:col-span-7 space-y-6 text-left reveal">
+                    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/80 border border-brand-linen text-brand-accent text-xs font-semibold tracking-wider uppercase shadow-sm">
+                        <span class="w-2 h-2 rounded-full bg-brand-accent animate-pulse"></span>
+                        Strathroy, Ontario's Premier Boutique Salon
+                    </div>
+
+                    <h1 class="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-light text-brand-text leading-[1.12]">
+                        Beautiful Hair. <br/>
+                        <span class="font-normal italic text-brand-accent">Personalized</span> to You.
+                    </h1>
+
+                    <p class="text-brand-muted text-base sm:text-lg max-w-xl font-normal leading-relaxed">
+                        Welcome to Front Street Salon—where modern artistry meets luxury relaxation. Experience bespoke hair colouring, precision cuts, and effortless balayage tailored specifically to elevate your style.
+                    </p>
+
+                    <!-- CTA Group -->
+                    <div class="pt-4 flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
+                        <button onclick="openBookingModal()" class="bg-brand-accent text-white px-8 py-4 rounded-full font-semibold text-base shadow-lg hover:bg-brand-accentDark transition duration-300 flex items-center justify-center gap-3 group">
+                            <span>Book Your Experience</span>
+                            <i class="fa-solid fa-arrow-right text-sm group-hover:translate-x-1 transition-transform"></i>
+                        </button>
+
+                        <a href="tel:5192579012" class="border border-brand-text/20 hover:border-brand-accent bg-white/60 hover:bg-white text-brand-text px-7 py-4 rounded-full font-medium text-base text-center transition duration-300 flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-phone text-brand-accent text-sm"></i>
+                            <span>519-257-9012</span>
+                        </a>
+                    </div>
+
+                    <!-- Highlight Badges -->
+                    <div class="pt-8 grid grid-cols-3 gap-4 border-t border-brand-linen/80 max-w-lg">
+                        <div>
+                            <p class="font-serif text-2xl md:text-3xl font-semibold text-brand-text">4.9★</p>
+                            <p class="text-xs text-brand-muted font-medium uppercase tracking-wider">Google Rating</p>
+                        </div>
+                        <div>
+                            <p class="font-serif text-2xl md:text-3xl font-semibold text-brand-text">100%</p>
+                            <p class="text-xs text-brand-muted font-medium uppercase tracking-wider">Personalized</p>
+                        </div>
+                        <div>
+                            <p class="font-serif text-2xl md:text-3xl font-semibold text-brand-text">Eco</p>
+                            <p class="text-xs text-brand-muted font-medium uppercase tracking-wider">Luxury Products</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Visual Composition -->
+                <div class="lg:col-span-5 relative reveal">
+                    <div class="relative mx-auto max-w-md lg:max-w-none">
+                        <!-- Main Frame -->
+                        <div class="img-zoom-container rounded-2xl shadow-2xl border-8 border-white bg-white">
+                            <img src="https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=1000&q=80" 
+                                 alt="Front Street Salon Strathroy Interior" 
+                                 class="w-full h-[460px] object-cover rounded-lg"
+                                 onerror="this.src='https://placehold.co/800x1000/EFEAE3/2C2523?text=Front+Street+Salon';">
+                        </div>
+
+                        <!-- Floating Card 1 -->
+                        <div class="absolute -bottom-6 -left-6 bg-white p-4 rounded-xl shadow-xl border border-brand-linen hidden sm:flex items-center gap-3 max-w-xs animate-bounce-slow">
+                            <div class="w-10 h-10 rounded-full bg-brand-subtle flex items-center justify-center text-brand-accent flex-shrink-0">
+                                <i class="fa-solid fa-scissors text-lg"></i>
+                            </div>
+                            <div>
+                                <p class="text-xs font-semibold text-brand-text">Master Hair Stylists</p>
+                                <p class="text-[11px] text-brand-muted">Precision Cutting &amp; Balayage</p>
+                            </div>
+                        </div>
+
+                        <!-- Floating Badge 2 -->
+                        <div class="absolute -top-4 -right-4 bg-brand-text text-white p-4 rounded-2xl shadow-lg hidden sm:block text-center">
+                            <p class="text-xs font-medium uppercase tracking-widest text-brand-accent">Strathroy, ON</p>
+                            <p class="font-serif text-lg font-light">Boutique Salon</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="py-20 lg:py-28 bg-white relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Imagery Column -->
+                <div class="lg:col-span-6 order-2 lg:order-1 reveal">
+                    <div class="grid grid-cols-2 gap-4 relative">
+                        <div class="space-y-4">
+                            <div class="img-zoom-container rounded-2xl shadow-lg border-4 border-brand-subtle">
+                                <img src="https://images.unsplash.com/photo-1562322140-8baeececf3df?auto=format&fit=crop&w=800&q=80" 
+                                     alt="Hair Styling in Strathroy" 
+                                     class="w-full h-64 object-cover rounded-xl"
+                                     onerror="this.src='https://placehold.co/600x800/EFEAE3/2C2523?text=Hair+Styling';">
+                            </div>
+                            <div class="bg-brand-subtle p-6 rounded-2xl border border-brand-linen text-center">
+                                <i class="fa-solid fa-heart text-2xl text-brand-accent mb-2"></i>
+                                <h4 class="font-serif text-xl font-semibold text-brand-text">Warm Atmosphere</h4>
+                                <p class="text-xs text-brand-muted mt-1">Relaxed, unhurried, and genuinely friendly service.</p>
+                            </div>
+                        </div>
+
+                        <div class="space-y-4 pt-8">
+                            <div class="bg-brand-accent text-white p-6 rounded-2xl shadow-md text-center">
+                                <span class="font-serif text-3xl font-light">48 Front St.</span>
+                                <p class="text-xs uppercase tracking-wider mt-1 opacity-90">Located in Heart of Strathroy</p>
+                            </div>
+                            <div class="img-zoom-container rounded-2xl shadow-lg border-4 border-brand-subtle">
+                                <img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=800&q=80" 
+                                     alt="Balayage Hair Color Treatment" 
+                                     class="w-full h-64 object-cover rounded-xl"
+                                     onerror="this.src='https://placehold.co/600x800/EFEAE3/2C2523?text=Hair+Colour';">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Text Content Column -->
+                <div class="lg:col-span-6 order-1 lg:order-2 space-y-6 reveal">
+                    <span class="text-xs font-semibold tracking-widest uppercase text-brand-accent">Our Story &amp; Philosophy</span>
+                    
+                    <h2 class="font-serif text-3xl sm:text-4xl lg:text-5xl font-light text-brand-text leading-tight">
+                        A boutique salon built on warmth, care &amp; exceptional artistry.
+                    </h2>
+
+                    <p class="text-brand-muted text-base leading-relaxed">
+                        At <strong class="text-brand-text font-medium">Front Street Salon</strong> in Strathroy, Ontario, we believe that great hair is more than just a style—it’s an expression of your confidence and individuality. 
+                    </p>
+
+                    <p class="text-brand-muted text-base leading-relaxed">
+                        Nestled in downtown Strathroy at 48 Front Street East, our intimate salon environment was designed as a sanctuary where you can step away from daily stress, relax with a gourmet coffee or tea, and receive dedicated one-on-one attention from passionate stylists.
+                    </p>
+
+                    <div class="space-y-3 pt-2">
+                        <div class="flex items-start gap-3">
+                            <div class="w-6 h-6 rounded-full bg-brand-subtle flex items-center justify-center text-brand-accent flex-shrink-0 mt-0.5">
+                                <i class="fa-solid fa-check text-xs"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-sm font-semibold text-brand-text">Tailored Consultations</h4>
+                                <p class="text-xs text-brand-muted">We analyze hair texture, skin tone, and lifestyle to create your custom look.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-3">
+                            <div class="w-6 h-6 rounded-full bg-brand-subtle flex items-center justify-center text-brand-accent flex-shrink-0 mt-0.5">
+                                <i class="fa-solid fa-check text-xs"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-sm font-semibold text-brand-text">Premium Hair Products</h4>
+                                <p class="text-xs text-brand-muted">We exclusively use nourishers and colors that protect hair integrity and shine.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-3">
+                            <div class="w-6 h-6 rounded-full bg-brand-subtle flex items-center justify-center text-brand-accent flex-shrink-0 mt-0.5">
+                                <i class="fa-solid fa-check text-xs"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-sm font-semibold text-brand-text">Welcoming &amp; Inclusive Environment</h4>
+                                <p class="text-xs text-brand-muted">Every guest is treated like family with individual care and honest expertise.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pt-4">
+                        <button onclick="openBookingModal()" class="inline-flex items-center gap-2 text-brand-accent font-semibold text-sm hover:text-brand-accentDark transition group">
+                            <span>Meet Our Team &amp; Reserve</span>
+                            <i class="fa-solid fa-arrow-right text-xs group-hover:translate-x-1 transition-transform"></i>
+                        </button>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="services" class="py-20 lg:py-28 bg-brand-bg relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <!-- Section Header -->
+            <div class="text-center max-w-3xl mx-auto space-y-4 mb-16 reveal">
+                <span class="text-xs font-semibold tracking-widest uppercase text-brand-accent">Crafted Services</span>
+                <h2 class="font-serif text-3xl sm:text-4xl lg:text-5xl font-light text-brand-text">
+                    Services &amp; Custom Treatments
+                </h2>
+                <p class="text-brand-muted text-base">
+                    Every service includes an in-depth consultation, luxury shampoo experience, and customized styling finishing touches.
+                </p>
+            </div>
+
+            <!-- Service Filter Tabs -->
+            <div class="flex justify-center mb-12 flex-wrap gap-2 reveal">
+                <button onclick="filterServices('all')" class="service-tab active border border-brand-accent bg-brand-accent text-white px-5 py-2 rounded-full text-xs font-semibold tracking-wider transition">All Services</button>
+                <button onclick="filterServices('cuts')" class="service-tab border border-brand-linen bg-white text-brand-muted hover:border-brand-accent hover:text-brand-accent px-5 py-2 rounded-full text-xs font-semibold tracking-wider transition">Cuts &amp; Styling</button>
+                <button onclick="filterServices('color')" class="service-tab border border-brand-linen bg-white text-brand-muted hover:border-brand-accent hover:text-brand-accent px-5 py-2 rounded-full text-xs font-semibold tracking-wider transition">Color &amp; Balayage</button>
+                <button onclick="filterServices('bridal')" class="service-tab border border-brand-linen bg-white text-brand-muted hover:border-brand-accent hover:text-brand-accent px-5 py-2 rounded-full text-xs font-semibold tracking-wider transition">Special Occasions</button>
+            </div>
+
+            <!-- Services Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+
+                <!-- Service 1 -->
+                <div class="service-card cuts bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition duration-300 border border-brand-linen flex flex-col justify-between group reveal">
+                    <div>
+                        <div class="img-zoom-container h-48 relative">
+                            <img src="https://images.unsplash.com/photo-1595476108010-b4d1f102b1b1?auto=format&fit=crop&w=800&q=80" 
+                                 alt="Haircuts & Styling" 
+                                 class="w-full h-full object-cover"
+                                 onerror="this.src='https://placehold.co/600x400/EFEAE3/2C2523?text=Haircuts';">
+                            <span class="absolute top-3 right-3 bg-white/90 backdrop-blur-sm text-brand-text text-xs font-semibold px-3 py-1 rounded-full shadow-sm">
+                                From $55
+                            </span>
+                        </div>
+                        <div class="p-6 space-y-3">
+                            <h3 class="font-serif text-2xl font-normal text-brand-text group-hover:text-brand-accent transition">
+                                Haircuts &amp; Styling
+                            </h3>
+                            <p class="text-xs text-brand-muted leading-relaxed">
+                                Precision haircuts, blowouts, and signature texturizing designed to enhance your facial features and routine.
+                            </p>
+                            <ul class="text-xs text-brand-muted space-y-1 pt-2">
+                                <li class="flex items-center gap-2"><i class="fa-solid fa-angle-right text-brand-accent text-[10px]"></i> Women’s Cut &amp; Style</li>
+                                <li class="flex items-center gap-2"><i class="fa-solid fa-angle-right text-brand-accent text-[10px]"></i> Men’s Haircut &amp; Grooming</li>
+                                <li class="flex items-center gap-2"><i class="fa-solid fa-angle-right text-brand-accent text-[10px]"></i> Signature Blowouts</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="p-6 pt-0">
+                        <button onclick="selectServiceForBooking('Haircuts & Styling')" class="w-full py-2.5 rounded-full border border-brand-accent text-brand-accent group-hover:bg-brand-accent group-hover:text-white transition font-medium text-xs tracking-wider uppercase">
+                            Book Service
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Service 2 -->
+                <div class="service-card color bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition duration-300 border border-brand-linen flex flex-col justify-between group reveal">
+                    <div>
+                        <div class="img-zoom-container h-48 relative">
+                            <img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=800&q=80" 
+                                 alt="Hair Colouring" 
+                                 class="w-full h-full object-cover"
+                                 onerror="this.src='https://placehold.co/600x400/EFEAE3/2C2523?text=Hair+Coloring';">
+                            <span class="absolute top-3 right-3 bg-white/90 backdrop-blur-sm text-brand-text text-xs font-semibold px-3 py-1 rounded-full shadow-sm">
+                                From $95
+                            </span>
+                        </div>
+                        <div class="p-6 space-y-3">
+                            <h3 class="font-serif text-2xl font-normal text-brand-text group-hover:text-brand-accent transition">
+                                Custom Hair Colouring
+                            </h3>
+                            <p class="text-xs text-brand-muted leading-relaxed">
+                                Rich, vibrant root coverage, glosses, tone correctors, and all-over dimensional color with minimal maintenance.
+                            </p>
+                            <ul class="text-xs text-brand-muted space-y-1 pt-2">
+                                <li class="flex items-center gap-2"><i class="fa-solid fa-angle-right text-brand-accent text-[10px]"></i> Full &amp; Root Touch-Ups</li>
+                                <li class="flex items-center gap-2"><i class="fa-solid fa-angle-right text-brand-accent text-[10px]"></i> Tonal Gloss &amp; Shine Treatments</li>
+                                <li class="flex items-center gap-2"><i class="fa-solid fa-angle-right text-brand-accent text-[10px]"></i> Color Correction</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="p-6 pt-0">
+                        <button onclick="selectServiceForBooking('Custom Hair Colouring')" class="w-full py-2.5 rounded-full border border-brand-accent text-brand-accent group-hover:bg-brand-accent group-hover:text-white transition font-medium text-xs tracking-wider uppercase">
+                            Book Service
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Service 3 -->
+                <div class="service-card color bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition duration-300 border border-brand-linen flex flex-col justify-between group reveal">
+                    <div>
+                        <div class="img-zoom-container h-48 relative">
+                            <img src="https://images.unsplash.com/photo-1519699047748-de8e457a634e?auto=format&fit=crop&w=800&q=80" 
+                                 alt="Highlights & Balayage" 
+                                 class="w-full h-full object-cover"
+                                 onerror="this.src='https://placehold.co/600x400/EFEAE3/2C2523?text=Balayage';">
+                            <span class="absolute top-3 right-3 bg-white/90 backdrop-blur-sm text-brand-text text-xs font-semibold px-3 py-1 rounded-full shadow-sm">
+                                From $145
+                            </span>
+                        </div>
+                        <div class="p-6 space-y-3">
+                            <h3 class="font-serif text-2xl font-normal text-brand-text group-hover:text-brand-accent transition">
+                                Highlights &amp; Balayage
+                            </h3>
+                            <p class="text-xs text-brand-muted leading-relaxed">
+                                Hand-painted sun-kissed dimension, foilyage, and seamless blend transitions for effortless elegance.
+                            </p>
+                            <ul class="text-xs text-brand-muted space-y-1 pt-2">
+                                <li class="flex items-center gap-2"><i class="fa-solid fa-angle-right text-brand-accent text-[10px]"></i> Full &amp; Partial Balayage</li>
+                                <li class="flex items-center gap-2"><i class="fa-solid fa-angle-right text-brand-accent text-[10px]"></i> Foil Highlights / Babylights</li>
+                                <li class="flex items-center gap-2"><i class="fa-solid fa-angle-right text-brand-accent text-[10px]"></i> Face-Framing Money Piece</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="p-6 pt-0">
+                        <button onclick="selectServiceForBooking('Highlights & Balayage')" class="w-full py-2.5 rounded-full border border-brand-accent text-brand-accent group-hover:bg-brand-accent group-hover:text-white transition font-medium text-xs tracking-wider uppercase">
+                            Book Service
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Service 4 -->
+                <div class="service-card bridal bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition duration-300 border border-brand-linen flex flex-col justify-between group reveal">
+                    <div>
+                        <div class="img-zoom-container h-48 relative">
+                            <img src="https://images.unsplash.com/photo-1527799820374-dcf8d9d4a388?auto=format&fit=crop&w=800&q=80" 
+                                 alt="Special Occasion & Wedding Hair" 
+                                 class="w-full h-full object-cover"
+                                 onerror="this.src='https://placehold.co/600x400/EFEAE3/2C2523?text=Bridal+Hair';">
+                            <span class="absolute top-3 right-3 bg-white/90 backdrop-blur-sm text-brand-text text-xs font-semibold px-3 py-1 rounded-full shadow-sm">
+                                From $110
+                            </span>
+                        </div>
+                        <div class="p-6 space-y-3">
+                            <h3 class="font-serif text-2xl font-normal text-brand-text group-hover:text-brand-accent transition">
+                                Bridal &amp; Event Styling
+                            </h3>
+                            <p class="text-xs text-brand-muted leading-relaxed">
+                                Formal up-dos, glam waves, and wedding party styling crafted to hold beautifully for your biggest moments.
+                            </p>
+                            <ul class="text-xs text-brand-muted space-y-1 pt-2">
+                                <li class="flex items-center gap-2"><i class="fa-solid fa-angle-right text-brand-accent text-[10px]"></i> Bridal Hair &amp; Trial</li>
+                                <li class="flex items-center gap-2"><i class="fa-solid fa-angle-right text-brand-accent text-[10px]"></i> Formal Updos &amp; Curls</li>
+                                <li class="flex items-center gap-2"><i class="fa-solid fa-angle-right text-brand-accent text-[10px]"></i> On-Location Packages</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="p-6 pt-0">
+                        <button onclick="selectServiceForBooking('Bridal & Event Styling')" class="w-full py-2.5 rounded-full border border-brand-accent text-brand-accent group-hover:bg-brand-accent group-hover:text-white transition font-medium text-xs tracking-wider uppercase">
+                            Book Service
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Additional Note CTA -->
+            <div class="mt-12 text-center bg-white p-6 rounded-2xl border border-brand-linen shadow-sm max-w-2xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 reveal">
+                <div class="text-left">
+                    <p class="text-sm font-semibold text-brand-text">Unsure which service is right for you?</p>
+                    <p class="text-xs text-brand-muted">Book a complimentary 15-minute hair consultation with our lead stylist.</p>
+                </div>
+                <button onclick="openBookingModal('Consultation')" class="bg-brand-subtle text-brand-text hover:bg-brand-accent hover:text-white px-5 py-2.5 rounded-full text-xs font-semibold transition whitespace-nowrap">
+                    Free Consultation
+                </button>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="booking" class="py-20 lg:py-28 bg-white border-y border-brand-linen relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+                
+                <!-- Left Details -->
+                <div class="lg:col-span-5 space-y-6 reveal">
+                    <span class="text-xs font-semibold tracking-widest uppercase text-brand-accent">Seamless Online Reservations</span>
+                    <h2 class="font-serif text-3xl sm:text-4xl lg:text-5xl font-light text-brand-text leading-tight">
+                        Reserve Your Seat in a Few Easy Steps
+                    </h2>
+                    <p class="text-brand-muted text-base leading-relaxed">
+                        Select your desired service, choose a date from our live calendar, pick a convenient time slot, and confirm your booking instantly.
+                    </p>
+
+                    <div class="space-y-4 pt-4">
+                        <div class="flex items-center gap-4 p-4 rounded-xl bg-brand-subtle border border-brand-linen">
+                            <div class="w-10 h-10 rounded-full bg-white flex items-center justify-center text-brand-accent font-semibold shadow-sm">1</div>
+                            <div>
+                                <h4 class="text-sm font-semibold text-brand-text">Select Service &amp; Stylist</h4>
+                                <p class="text-xs text-brand-muted">Choose your treatment preference.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center gap-4 p-4 rounded-xl bg-brand-subtle border border-brand-linen">
+                            <div class="w-10 h-10 rounded-full bg-white flex items-center justify-center text-brand-accent font-semibold shadow-sm">2</div>
+                            <div>
+                                <h4 class="text-sm font-semibold text-brand-text">Pick Calendar Date &amp; Time</h4>
+                                <p class="text-xs text-brand-muted">Real-time availability in Strathroy.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center gap-4 p-4 rounded-xl bg-brand-subtle border border-brand-linen">
+                            <div class="w-10 h-10 rounded-full bg-white flex items-center justify-center text-brand-accent font-semibold shadow-sm">3</div>
+                            <div>
+                                <h4 class="text-sm font-semibold text-brand-text">Instant Confirmation</h4>
+                                <p class="text-xs text-brand-muted">Receive notification and reminder.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pt-2 text-xs text-brand-muted flex items-center gap-2">
+                        <i class="fa-solid fa-shield-halved text-brand-accent"></i>
+                        <span>No upfront charge. Pay directly after your service.</span>
+                    </div>
+                </div>
+
+                <!-- Right Interactive Calendar Lead Booking Tool -->
+                <div class="lg:col-span-7 bg-brand-bg p-6 sm:p-8 rounded-3xl border border-brand-linen shadow-xl reveal">
+                    <form id="inline-booking-form" onsubmit="handleBookingSubmit(event)">
+                        
+                        <!-- Step Indicator -->
+                        <div class="flex items-center justify-between pb-6 mb-6 border-b border-brand-linen text-xs font-semibold text-brand-muted">
+                            <span class="text-brand-accent flex items-center gap-2">
+                                <i class="fa-solid fa-calendar-days"></i> Booking Calendar
+                            </span>
+                            <span>Front Street Salon • Strathroy</span>
+                        </div>
+
+                        <!-- Service & Stylist Selectors -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+                            <div>
+                                <label class="block text-xs font-semibold text-brand-text uppercase tracking-wider mb-2">Service Type</label>
+                                <select id="booking-service" class="w-full bg-white border border-brand-linen rounded-xl p-3 text-sm text-brand-text focus:outline-none focus:border-brand-accent transition">
+                                    <option value="Haircuts &amp; Styling">Haircut &amp; Styling ($55+)</option>
+                                    <option value="Custom Hair Colouring">Custom Colouring ($95+)</option>
+                                    <option value="Highlights &amp; Balayage">Highlights / Balayage ($145+)</option>
+                                    <option value="Bridal &amp; Event Styling">Special Occasion / Bridal ($110+)</option>
+                                    <option value="Consultation">Complimentary Consultation ($0)</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label class="block text-xs font-semibold text-brand-text uppercase tracking-wider mb-2">Preferred Stylist</label>
+                                <select id="booking-stylist" class="w-full bg-white border border-brand-linen rounded-xl p-3 text-sm text-brand-text focus:outline-none focus:border-brand-accent transition">
+                                    <option value="First Available">First Available Senior Stylist</option>
+                                    <option value="Sarah (Color Specialist)">Sarah (Master Colorist)</option>
+                                    <option value="Elena (Styling & Balayage)">Elena (Balayage Specialist)</option>
+                                    <option value="Jessica (Cuts & Bridal)">Jessica (Styling & Bridal)</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Interactive Calendar Month Box -->
+                        <div class="bg-white rounded-2xl p-4 sm:p-6 border border-brand-linen shadow-sm mb-6">
+                            <div class="flex items-center justify-between mb-4">
+                                <button type="button" onclick="changeMonth(-1)" class="p-2 rounded-lg hover:bg-brand-subtle text-brand-text transition">
+                                    <i class="fa-solid fa-chevron-left text-xs"></i>
+                                </button>
+                                <h4 id="calendar-month-year" class="font-serif text-lg font-semibold text-brand-text">
+                                    October 2026
+                                </h4>
+                                <button type="button" onclick="changeMonth(1)" class="p-2 rounded-lg hover:bg-brand-subtle text-brand-text transition">
+                                    <i class="fa-solid fa-chevron-right text-xs"></i>
+                                </button>
+                            </div>
+
+                            <!-- Calendar Grid Header -->
+                            <div class="grid grid-cols-7 text-center text-[11px] font-semibold text-brand-muted uppercase mb-2">
+                                <div>Su</div><div>Mo</div><div>Tu</div><div>We</div><div>Th</div><div>Fr</div><div>Sa</div>
+                            </div>
+
+                            <!-- Dynamic Calendar Grid Days -->
+                            <div id="calendar-days" class="grid grid-cols-7 gap-1 text-center text-xs text-brand-text">
+                                <!-- Populated via JS -->
+                            </div>
+                        </div>
+
+                        <!-- Time Slots Selector -->
+                        <div class="mb-6">
+                            <label class="block text-xs font-semibold text-brand-text uppercase tracking-wider mb-2">Select Available Time Slot</label>
+                            <div id="time-slots" class="grid grid-cols-3 sm:grid-cols-4 gap-2">
+                                <button type="button" onclick="selectTimeSlot(this)" class="time-slot p-2.5 rounded-xl border border-brand-linen bg-white text-xs font-medium text-brand-text hover:border-brand-accent transition">9:00 AM</button>
+                                <button type="button" onclick="selectTimeSlot(this)" class="time-slot p-2.5 rounded-xl border border-brand-linen bg-white text-xs font-medium text-brand-text hover:border-brand-accent transition">10:30 AM</button>
+                                <button type="button" onclick="selectTimeSlot(this)" class="time-slot p-2.5 rounded-xl border border-brand-linen bg-white text-xs font-medium text-brand-text hover:border-brand-accent transition">1:00 PM</button>
+                                <button type="button" onclick="selectTimeSlot(this)" class="time-slot p-2.5 rounded-xl border border-brand-linen bg-white text-xs font-medium text-brand-text hover:border-brand-accent transition">2:30 PM</button>
+                                <button type="button" onclick="selectTimeSlot(this)" class="time-slot p-2.5 rounded-xl border border-brand-linen bg-white text-xs font-medium text-brand-text hover:border-brand-accent transition">4:00 PM</button>
+                                <button type="button" onclick="selectTimeSlot(this)" class="time-slot p-2.5 rounded-xl border border-brand-linen bg-white text-xs font-medium text-brand-text hover:border-brand-accent transition">5:30 PM</button>
+                            </div>
+                        </div>
+
+                        <!-- Contact Lead Details -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+                            <div>
+                                <label class="block text-xs font-semibold text-brand-text uppercase tracking-wider mb-1">Full Name *</label>
+                                <input type="text" id="booking-name" required placeholder="Jane Doe" class="w-full bg-white border border-brand-linen rounded-xl p-3 text-sm text-brand-text focus:outline-none focus:border-brand-accent transition">
+                            </div>
+
+                            <div>
+                                <label class="block text-xs font-semibold text-brand-text uppercase tracking-wider mb-1">Phone Number *</label>
+                                <input type="tel" id="booking-phone" required placeholder="(519) 000-0000" class="w-full bg-white border border-brand-linen rounded-xl p-3 text-sm text-brand-text focus:outline-none focus:border-brand-accent transition">
+                            </div>
+                        </div>
+
+                        <button type="submit" class="w-full bg-brand-accent hover:bg-brand-accentDark text-white py-4 rounded-xl font-semibold text-sm tracking-wider uppercase transition shadow-lg flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-check-circle"></i>
+                            <span>Confirm Reservation Request</span>
+                        </button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="gallery" class="py-20 lg:py-28 bg-brand-bg relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="text-center max-w-3xl mx-auto space-y-4 mb-16 reveal">
+                <span class="text-xs font-semibold tracking-widest uppercase text-brand-accent">Our Portfolio</span>
+                <h2 class="font-serif text-3xl sm:text-4xl lg:text-5xl font-light text-brand-text">
+                    Transformations &amp; Artistry
+                </h2>
+                <p class="text-brand-muted text-base">
+                    Browse real client transformations created inside Front Street Salon Strathroy.
+                </p>
+            </div>
+
+            <!-- Gallery Grid -->
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                
+                <div class="img-zoom-container rounded-2xl relative shadow-md group cursor-pointer reveal" onclick="openLightbox('https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=1200&q=80', 'Dimensional Balayage')">
+                    <img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=800&q=80" alt="Dimensional Balayage" class="w-full h-72 object-cover rounded-2xl" onerror="this.src='https://placehold.co/600x800/EFEAE3/2C2523?text=Gallery+1';">
+                    <div class="absolute inset-0 bg-brand-text/40 opacity-0 group-hover:opacity-100 transition duration-300 rounded-2xl flex items-center justify-center text-white text-center p-4">
+                        <div>
+                            <i class="fa-solid fa-magnifying-glass-plus text-2xl mb-2"></i>
+                            <p class="font-serif text-lg font-light">Dimensional Balayage</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="img-zoom-container rounded-2xl relative shadow-md group cursor-pointer reveal" onclick="openLightbox('https://images.unsplash.com/photo-1595476108010-b4d1f102b1b1?auto=format&fit=crop&w=1200&q=80', 'Soft Blonde Highlights')">
+                    <img src="https://images.unsplash.com/photo-1595476108010-b4d1f102b1b1?auto=format&fit=crop&w=800&q=80" alt="Soft Blonde Highlights" class="w-full h-72 object-cover rounded-2xl" onerror="this.src='https://placehold.co/600x800/EFEAE3/2C2523?text=Gallery+2';">
+                    <div class="absolute inset-0 bg-brand-text/40 opacity-0 group-hover:opacity-100 transition duration-300 rounded-2xl flex items-center justify-center text-white text-center p-4">
+                        <div>
+                            <i class="fa-solid fa-magnifying-glass-plus text-2xl mb-2"></i>
+                            <p class="font-serif text-lg font-light">Soft Blonde Highlights</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="img-zoom-container rounded-2xl relative shadow-md group cursor-pointer reveal" onclick="openLightbox('https://images.unsplash.com/photo-1519699047748-de8e457a634e?auto=format&fit=crop&w=1200&q=80', 'Bridal Glam Waves')">
+                    <img src="https://images.unsplash.com/photo-1519699047748-de8e457a634e?auto=format&fit=crop&w=800&q=80" alt="Bridal Glam Waves" class="w-full h-72 object-cover rounded-2xl" onerror="this.src='https://placehold.co/600x800/EFEAE3/2C2523?text=Gallery+3';">
+                    <div class="absolute inset-0 bg-brand-text/40 opacity-0 group-hover:opacity-100 transition duration-300 rounded-2xl flex items-center justify-center text-white text-center p-4">
+                        <div>
+                            <i class="fa-solid fa-magnifying-glass-plus text-2xl mb-2"></i>
+                            <p class="font-serif text-lg font-light">Bridal Glam Waves</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="img-zoom-container rounded-2xl relative shadow-md group cursor-pointer reveal" onclick="openLightbox('https://images.unsplash.com/photo-1562322140-8baeececf3df?auto=format&fit=crop&w=1200&q=80', 'Precision Bob Cut')">
+                    <img src="https://images.unsplash.com/photo-1562322140-8baeececf3df?auto=format&fit=crop&w=800&q=80" alt="Precision Bob Cut" class="w-full h-72 object-cover rounded-2xl" onerror="this.src='https://placehold.co/600x800/EFEAE3/2C2523?text=Gallery+4';">
+                    <div class="absolute inset-0 bg-brand-text/40 opacity-0 group-hover:opacity-100 transition duration-300 rounded-2xl flex items-center justify-center text-white text-center p-4">
+                        <div>
+                            <i class="fa-solid fa-magnifying-glass-plus text-2xl mb-2"></i>
+                            <p class="font-serif text-lg font-light">Precision Bob Cut</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <section id="why-us" class="py-20 lg:py-28 bg-white relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <div class="lg:col-span-6 space-y-8 reveal">
+                    <span class="text-xs font-semibold tracking-widest uppercase text-brand-accent">The Front Street Standard</span>
+                    <h2 class="font-serif text-3xl sm:text-4xl lg:text-5xl font-light text-brand-text leading-tight">
+                        Why Strathroy Locals Love Visiting Our Boutique
+                    </h2>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        
+                        <div class="p-5 rounded-2xl bg-brand-subtle border border-brand-linen space-y-2">
+                            <div class="w-10 h-10 rounded-full bg-white flex items-center justify-center text-brand-accent shadow-sm">
+                                <i class="fa-solid fa-user-check"></i>
+                            </div>
+                            <h4 class="font-serif text-xl font-semibold text-brand-text">1-on-1 Consultation</h4>
+                            <p class="text-xs text-brand-muted leading-relaxed">
+                                We listen to your hair history, daily maintenance habits, and beauty goals before making a single cut.
+                            </p>
+                        </div>
+
+                        <div class="p-5 rounded-2xl bg-brand-subtle border border-brand-linen space-y-2">
+                            <div class="w-10 h-10 rounded-full bg-white flex items-center justify-center text-brand-accent shadow-sm">
+                                <i class="fa-solid fa-award"></i>
+                            </div>
+                            <h4 class="font-serif text-xl font-semibold text-brand-text">Master Colorists</h4>
+                            <p class="text-xs text-brand-muted leading-relaxed">
+                                Continuously trained in modern balayage, foilyage, and advanced corrective color techniques.
+                            </p>
+                        </div>
+
+                        <div class="p-5 rounded-2xl bg-brand-subtle border border-brand-linen space-y-2">
+                            <div class="w-10 h-10 rounded-full bg-white flex items-center justify-center text-brand-accent shadow-sm">
+                                <i class="fa-solid fa-leaf"></i>
+                            </div>
+                            <h4 class="font-serif text-xl font-semibold text-brand-text">Nourishing Formulations</h4>
+                            <p class="text-xs text-brand-muted leading-relaxed">
+                                Ammonia-free, cruel-free, and nutrient-dense formulas that leave your hair healthier than before.
+                            </p>
+                        </div>
+
+                        <div class="p-5 rounded-2xl bg-brand-subtle border border-brand-linen space-y-2">
+                            <div class="w-10 h-10 rounded-full bg-white flex items-center justify-center text-brand-accent shadow-sm">
+                                <i class="fa-solid fa-[#C58B70] fa-couch"></i>
+                            </div>
+                            <h4 class="font-serif text-xl font-semibold text-brand-text">Relaxing Experience</h4>
+                            <p class="text-xs text-brand-muted leading-relaxed">
+                                Scalp massages, complimentary premium espresso, teas, and zero-rushed appointments.
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="lg:col-span-6 reveal">
+                    <div class="relative">
+                        <div class="img-zoom-container rounded-3xl shadow-2xl border-8 border-brand-subtle">
+                            <img src="https://images.unsplash.com/photo-1535585209827-a15fcdbc4c2d?auto=format&fit=crop&w=1000&q=80" 
+                                 alt="Salon Products and Luxury Haircare" 
+                                 class="w-full h-[520px] object-cover rounded-2xl"
+                                 onerror="this.src='https://placehold.co/800x1000/EFEAE3/2C2523?text=Luxury+Haircare';">
+                        </div>
+
+                        <div class="absolute bottom-8 right-8 bg-white/95 backdrop-blur p-6 rounded-2xl shadow-xl max-w-xs border border-brand-linen">
+                            <p class="font-serif text-2xl text-brand-text font-light italic">“The best hair experience in Strathroy!”</p>
+                            <p class="text-xs font-semibold text-brand-accent mt-2">— Local Strathroy Client</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <section id="testimonials" class="py-20 lg:py-28 bg-brand-bg border-t border-brand-linen relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="text-center max-w-3xl mx-auto space-y-4 mb-16 reveal">
+                <span class="text-xs font-semibold tracking-widest uppercase text-brand-accent">Client Feedback</span>
+                <h2 class="font-serif text-3xl sm:text-4xl lg:text-5xl font-light text-brand-text">
+                    Loved by Our Community
+                </h2>
+                <p class="text-brand-muted text-base">
+                    Read genuine reviews from clients who trust Front Street Salon with their hair.
+                </p>
+            </div>
+
+            <!-- Review Cards Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                
+                <!-- Review 1 -->
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-brand-linen flex flex-col justify-between reveal">
+                    <div class="space-y-4">
+                        <div class="flex text-amber-400 text-sm gap-1">
+                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                        </div>
+                        <p class="text-brand-text text-sm leading-relaxed italic">
+                            “I’ve been coming to Front Street Salon since I moved to Strathroy. The team is so welcoming and my balayage has never looked better or felt healthier. Highly recommend!”
+                        </p>
+                    </div>
+                    <div class="pt-6 mt-6 border-t border-brand-linen flex items-center justify-between">
+                        <div>
+                            <h4 class="font-semibold text-sm text-brand-text">Amanda K.</h4>
+                            <p class="text-xs text-brand-muted">Strathroy Resident</p>
+                        </div>
+                        <span class="text-xs font-medium text-brand-accent bg-brand-subtle px-2.5 py-1 rounded-full">Balayage</span>
+                    </div>
+                </div>
+
+                <!-- Review 2 -->
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-brand-linen flex flex-col justify-between reveal">
+                    <div class="space-y-4">
+                        <div class="flex text-amber-400 text-sm gap-1">
+                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                        </div>
+                        <p class="text-brand-text text-sm leading-relaxed italic">
+                            “Finding a salon that genuinely listens to what you want is rare. They spent so much time during my consultation and gave me the exact chic bob I was looking for!”
+                        </p>
+                    </div>
+                    <div class="pt-6 mt-6 border-t border-brand-linen flex items-center justify-between">
+                        <div>
+                            <h4 class="font-semibold text-sm text-brand-text">Rachel M.</h4>
+                            <p class="text-xs text-brand-muted">Verified Customer</p>
+                        </div>
+                        <span class="text-xs font-medium text-brand-accent bg-brand-subtle px-2.5 py-1 rounded-full">Haircut &amp; Style</span>
+                    </div>
+                </div>
+
+                <!-- Review 3 -->
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-brand-linen flex flex-col justify-between reveal">
+                    <div class="space-y-4">
+                        <div class="flex text-amber-400 text-sm gap-1">
+                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                        </div>
+                        <p class="text-brand-text text-sm leading-relaxed italic">
+                            “They did my wedding party styling and everyone looked absolutely stunning! The styles held up all night. Beautiful atmosphere and lovely staff.”
+                        </p>
+                    </div>
+                    <div class="pt-6 mt-6 border-t border-brand-linen flex items-center justify-between">
+                        <div>
+                            <h4 class="font-semibold text-sm text-brand-text">Courtney B.</h4>
+                            <p class="text-xs text-brand-muted">Bridal Party Client</p>
+                        </div>
+                        <span class="text-xs font-medium text-brand-accent bg-brand-subtle px-2.5 py-1 rounded-full">Bridal Styling</span>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <section class="py-16 bg-gradient-to-r from-brand-accent via-brand-accentDark to-brand-accent text-white relative overflow-hidden">
+        <div class="max-w-5xl mx-auto px-4 text-center space-y-6 relative z-10 reveal">
+            <h2 class="font-serif text-3xl sm:text-4xl md:text-5xl font-light">
+                Ready for Your Next Look?
+            </h2>
+            <p class="text-white/90 text-base max-w-xl mx-auto font-light">
+                Experience Strathroy’s favorite boutique salon experience. Slots fill quickly—book your appointment online or give us a call today.
+            </p>
+            <div class="pt-4 flex flex-col sm:flex-row justify-center items-center gap-4">
+                <button onclick="openBookingModal()" class="bg-white text-brand-text hover:bg-brand-bg px-8 py-4 rounded-full font-semibold text-sm shadow-xl transition transform hover:-translate-y-0.5">
+                    Book Your Appointment
+                </button>
+                <a href="tel:5192579012" class="border border-white/40 hover:bg-white/10 text-white px-8 py-4 rounded-full font-semibold text-sm transition">
+                    Call 519-257-9012
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="py-20 lg:py-28 bg-white relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+                
+                <!-- Contact Info Column -->
+                <div class="lg:col-span-5 space-y-8 reveal">
+                    <div>
+                        <span class="text-xs font-semibold tracking-widest uppercase text-brand-accent">Get In Touch</span>
+                        <h2 class="font-serif text-3xl sm:text-4xl font-light text-brand-text mt-2">
+                            Visit Our Salon
+                        </h2>
+                        <p class="text-brand-muted text-sm mt-3">
+                            We are located right in the heart of downtown Strathroy, Ontario.
+                        </p>
+                    </div>
+
+                    <div class="space-y-6">
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 rounded-2xl bg-brand-subtle flex items-center justify-center text-brand-accent flex-shrink-0">
+                                <i class="fa-solid fa-location-dot text-lg"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-sm font-semibold text-brand-text">Address</h4>
+                                <p class="text-xs text-brand-muted mt-0.5">48 Front Street E, Strathroy, ON N7G 1Y5</p>
+                                <a href="https://maps.google.com/?q=48+Front+Street+E,+Strathroy,+ON+N7G+1Y5" target="_blank" class="text-xs text-brand-accent font-semibold hover:underline inline-block mt-1">Get Directions &rarr;</a>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 rounded-2xl bg-brand-subtle flex items-center justify-center text-brand-accent flex-shrink-0">
+                                <i class="fa-solid fa-phone text-lg"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-sm font-semibold text-brand-text">Phone</h4>
+                                <p class="text-xs text-brand-muted mt-0.5"><a href="tel:5192579012" class="hover:text-brand-accent transition">519-257-9012</a></p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 rounded-2xl bg-brand-subtle flex items-center justify-center text-brand-accent flex-shrink-0">
+                                <i class="fa-solid fa-envelope text-lg"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-sm font-semibold text-brand-text">Email</h4>
+                                <p class="text-xs text-brand-muted mt-0.5"><a href="mailto:frontstsalon@gmail.com" class="hover:text-brand-accent transition">frontstsalon@gmail.com</a></p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 rounded-2xl bg-brand-subtle flex items-center justify-center text-brand-accent flex-shrink-0">
+                                <i class="fa-regular fa-clock text-lg"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-sm font-semibold text-brand-text">Hours of Operation</h4>
+                                <ul class="text-xs text-brand-muted space-y-1 mt-1">
+                                    <li>Tuesday - Friday: 9:00 AM - 7:00 PM</li>
+                                    <li>Saturday: 9:00 AM - 4:00 PM</li>
+                                    <li>Sunday - Monday: Closed</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- General Contact / Inquiry Form -->
+                <div class="lg:col-span-7 bg-brand-bg p-8 rounded-3xl border border-brand-linen shadow-sm reveal">
+                    <h3 class="font-serif text-2xl font-light text-brand-text mb-2">Send Us a Message</h3>
+                    <p class="text-xs text-brand-muted mb-6">Have questions regarding a service, group booking, or bridal inquiry? Send us a quick message below.</p>
+
+                    <form id="general-contact-form" onsubmit="handleGeneralContact(event)" class="space-y-4">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-semibold text-brand-text uppercase tracking-wider mb-1">Your Name *</label>
+                                <input type="text" required placeholder="Jane Doe" class="w-full bg-white border border-brand-linen rounded-xl p-3 text-sm text-brand-text focus:outline-none focus:border-brand-accent transition">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-brand-text uppercase tracking-wider mb-1">Email Address *</label>
+                                <input type="email" required placeholder="jane@example.com" class="w-full bg-white border border-brand-linen rounded-xl p-3 text-sm text-brand-text focus:outline-none focus:border-brand-accent transition">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-semibold text-brand-text uppercase tracking-wider mb-1">Subject</label>
+                            <input type="text" placeholder="General Inquiry / Bridal / Service Question" class="w-full bg-white border border-brand-linen rounded-xl p-3 text-sm text-brand-text focus:outline-none focus:border-brand-accent transition">
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-semibold text-brand-text uppercase tracking-wider mb-1">Message *</label>
+                            <textarea rows="4" required placeholder="How can we help you?" class="w-full bg-white border border-brand-linen rounded-xl p-3 text-sm text-brand-text focus:outline-none focus:border-brand-accent transition"></textarea>
+                        </div>
+
+                        <button type="submit" class="w-full bg-brand-text text-white hover:bg-brand-accent py-3.5 rounded-xl text-xs font-semibold uppercase tracking-wider transition shadow-md">
+                            Send Message
+                        </button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-brand-text text-white py-16 border-t border-brand-linen">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-10 pb-12 border-b border-white/10">
+                
+                <!-- Column 1: Brand Info -->
+                <div class="space-y-4 md:col-span-1">
+                    <a href="#home" class="block">
+                        <span class="font-serif text-2xl font-semibold tracking-wider text-white">
+                            FRONT STREET
+                        </span>
+                        <span class="block text-[10px] uppercase tracking-[0.3em] text-brand-accent font-medium">
+                            SALON &bull; STRATHROY
+                        </span>
+                    </a>
+                    <p class="text-xs text-white/70 leading-relaxed">
+                        Strathroy’s premier boutique salon offering customized cuts, balayage, colouring, and wedding styling in an unhurried luxury atmosphere.
+                    </p>
+                </div>
+
+                <!-- Column 2: Quick Links -->
+                <div>
+                    <h4 class="font-serif text-lg font-normal text-white mb-4">Quick Links</h4>
+                    <ul class="space-y-2 text-xs text-white/70">
+                        <li><a href="#home" class="hover:text-brand-accent transition">Home</a></li>
+                        <li><a href="#about" class="hover:text-brand-accent transition">About Us</a></li>
+                        <li><a href="#services" class="hover:text-brand-accent transition">Services &amp; Pricing</a></li>
+                        <li><a href="#booking" class="hover:text-brand-accent transition">Online Calendar</a></li>
+                        <li><a href="#gallery" class="hover:text-brand-accent transition">Hair Gallery</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 3: Contact Info -->
+                <div>
+                    <h4 class="font-serif text-lg font-normal text-white mb-4">Contact</h4>
+                    <ul class="space-y-2 text-xs text-white/70">
+                        <li>48 Front Street E</li>
+                        <li>Strathroy, ON N7G 1Y5</li>
+                        <li><a href="tel:5192579012" class="hover:text-brand-accent transition">519-257-9012</a></li>
+                        <li><a href="mailto:frontstsalon@gmail.com" class="hover:text-brand-accent transition">frontstsalon@gmail.com</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 4: Socials & Hours -->
+                <div>
+                    <h4 class="font-serif text-lg font-normal text-white mb-4">Connect With Us</h4>
+                    <p class="text-xs text-white/70 mb-4">Follow our social pages for daily client transformations and hair care tips!</p>
+                    <div class="flex space-x-3">
+                        <a href="#" class="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-brand-accent transition"><i class="fa-brands fa-instagram text-sm"></i></a>
+                        <a href="#" class="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-brand-accent transition"><i class="fa-brands fa-facebook-f text-sm"></i></a>
+                        <a href="#" class="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-brand-accent transition"><i class="fa-solid fa-envelope text-sm"></i></a>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-white/50">
+                <p>&copy; <span id="current-year"></span> Front Street Salon. All Rights Reserved.</p>
+                <p class="mt-2 sm:mt-0">Strathroy, Ontario, Canada</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Gallery Lightbox Modal -->
+    <div id="lightbox-modal" class="modal-overlay fixed inset-0 z-50 bg-brand-text/90 flex items-center justify-center p-4">
+        <div class="modal-content relative max-w-4xl w-full bg-white rounded-2xl overflow-hidden shadow-2xl">
+            <button onclick="closeLightbox()" class="absolute top-4 right-4 z-10 w-10 h-10 rounded-full bg-black/50 text-white flex items-center justify-center hover:bg-black transition">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+            <img id="lightbox-img" src="" alt="Gallery Preview" class="w-full max-h-[80vh] object-contain bg-black">
+            <div class="p-4 bg-white text-center">
+                <h4 id="lightbox-caption" class="font-serif text-xl text-brand-text">Hair Transformation</h4>
+            </div>
+        </div>
+    </div>
+
+    <!-- Booking Confirmation Toast / Alert Box -->
+    <div id="toast-message" class="fixed bottom-6 right-6 z-50 transform translate-y-24 opacity-0 transition-all duration-300 bg-brand-text text-white px-6 py-4 rounded-2xl shadow-2xl flex items-center gap-3 border border-brand-accent max-w-md">
+        <i class="fa-solid fa-circle-check text-brand-accent text-xl"></i>
+        <div>
+            <p id="toast-title" class="font-semibold text-sm">Appointment Request Received!</p>
+            <p id="toast-desc" class="text-xs text-white/80">We have logged your calendar request for Front Street Salon.</p>
+        </div>
+    </div>
+
+    <script>
+        // Set copyright year
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuIcon = document.getElementById('menu-icon');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+            if (mobileMenu.classList.contains('hidden')) {
+                menuIcon.className = 'fa-solid fa-bars text-xl';
+            } else {
+                menuIcon.className = 'fa-solid fa-xmark text-xl';
+            }
+        });
+
+        // Close mobile menu on click link
+        document.querySelectorAll('.mobile-link').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+                menuIcon.className = 'fa-solid fa-bars text-xl';
+            });
+        });
+
+        // Intersection Observer for scroll reveal effect
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // Services Filter Logic
+        function filterServices(category) {
+            const cards = document.querySelectorAll('.service-card');
+            const tabs = document.querySelectorAll('.service-tab');
+
+            tabs.forEach(tab => {
+                tab.classList.remove('bg-brand-accent', 'text-white');
+                tab.classList.add('bg-white', 'text-brand-muted');
+            });
+
+            event.target.classList.remove('bg-white', 'text-brand-muted');
+            event.target.classList.add('bg-brand-accent', 'text-white');
+
+            cards.forEach(card => {
+                if (category === 'all' || card.classList.contains(category)) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // Lightbox Logic
+        function openLightbox(src, caption) {
+            document.getElementById('lightbox-img').src = src;
+            document.getElementById('lightbox-caption').textContent = caption;
+            document.getElementById('lightbox-modal').classList.add('open');
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox-modal').classList.remove('open');
+        }
+
+        // Calendar Engine Logic
+        let currentDate = new Date();
+        let selectedDay = 15;
+        let selectedTime = "10:30 AM";
+
+        function renderCalendar() {
+            const monthYearText = document.getElementById('calendar-month-year');
+            const calendarDays = document.getElementById('calendar-days');
+            if (!calendarDays) return;
+
+            const year = currentDate.getFullYear();
+            const month = currentDate.getMonth();
+
+            const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+            monthYearText.textContent = `${monthNames[month]} ${year}`;
+
+            const firstDay = new Date(year, month, 1).getDay();
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+            calendarDays.innerHTML = "";
+
+            // Empty slots before first day
+            for (let i = 0; i < firstDay; i++) {
+                const emptyDiv = document.createElement('div');
+                emptyDiv.className = 'py-2';
+                calendarDays.appendChild(emptyDiv);
+            }
+
+            // Days of the month
+            for (let day = 1; day <= daysInMonth; day++) {
+                const dayBtn = document.createElement('button');
+                dayBtn.type = 'button';
+                dayBtn.textContent = day;
+
+                // Disable past days or Sundays (0)
+                const thisDate = new Date(year, month, day);
+                const dayOfWeek = thisDate.getDay();
+
+                if (dayOfWeek === 0 || dayOfWeek === 1) { // Closed Sun/Mon
+                    dayBtn.className = 'calendar-day disabled py-2 rounded-lg text-xs';
+                } else {
+                    dayBtn.className = `calendar-day py-2 rounded-lg text-xs ${day === selectedDay ? 'selected' : ''}`;
+                    dayBtn.onclick = () => {
+                        document.querySelectorAll('.calendar-day').forEach(d => d.classList.remove('selected'));
+                        dayBtn.classList.add('selected');
+                        selectedDay = day;
+                    };
+                }
+                calendarDays.appendChild(dayBtn);
+            }
+        }
+
+        function changeMonth(offset) {
+            currentDate.setMonth(currentDate.getMonth() + offset);
+            renderCalendar();
+        }
+
+        function selectTimeSlot(btn) {
+            document.querySelectorAll('.time-slot').forEach(b => {
+                b.classList.remove('bg-brand-accent', 'text-white', 'border-brand-accent');
+                b.classList.add('bg-white', 'text-brand-text');
+            });
+            btn.classList.remove('bg-white', 'text-brand-text');
+            btn.classList.add('bg-brand-accent', 'text-white', 'border-brand-accent');
+            selectedTime = btn.textContent.trim();
+        }
+
+        function selectServiceForBooking(serviceName) {
+            const select = document.getElementById('booking-service');
+            if (select) {
+                for (let option of select.options) {
+                    if (option.value.toLowerCase().includes(serviceName.toLowerCase())) {
+                        select.value = option.value;
+                        break;
+                    }
+                }
+            }
+            openBookingModal();
+        }
+
+        function openBookingModal(serviceName) {
+            if (serviceName) {
+                const select = document.getElementById('booking-service');
+                if (select) select.value = serviceName;
+            }
+            const bookingSection = document.getElementById('booking');
+            bookingSection.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function handleBookingSubmit(event) {
+            event.preventDefault();
+            const service = document.getElementById('booking-service').value;
+            const name = document.getElementById('booking-name').value;
+            const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+            const dateStr = `${monthNames[currentDate.getMonth()]} ${selectedDay}, ${currentDate.getFullYear()}`;
+
+            showToast("Appointment Requested!", `Thank you ${name}! We reserved ${service} on ${dateStr} at ${selectedTime}.`);
+            event.target.reset();
+        }
+
+        function handleGeneralContact(event) {
+            event.preventDefault();
+            showToast("Message Sent!", "Thank you for contacting Front Street Salon. We will respond shortly.");
+            event.target.reset();
+        }
+
+        function showToast(title, desc) {
+            const toast = document.getElementById('toast-message');
+            document.getElementById('toast-title').textContent = title;
+            document.getElementById('toast-desc').textContent = desc;
+
+            toast.classList.remove('translate-y-24', 'opacity-0');
+            toast.classList.add('translate-y-0', 'opacity-100');
+
+            setTimeout(() => {
+                toast.classList.remove('translate-y-0', 'opacity-100');
+                toast.classList.add('translate-y-24', 'opacity-0');
+            }, 5000);
+        }
+
+        // Initialize Calendar on Load
+        window.onload = function() {
+            renderCalendar();
+            // Select initial time slot styling
+            const firstSlot = document.querySelector('.time-slot');
+            if (firstSlot) selectTimeSlot(firstSlot);
+        };
+    </script>
+</body>
+</html>
